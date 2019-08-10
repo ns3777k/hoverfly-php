@@ -1,0 +1,7 @@
+.idea
+*.iml
+/bin
+/index.php
+/.phpunit.result.cache
+/vendor
+/.php_cs.cache

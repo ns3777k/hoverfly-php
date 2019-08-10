@@ -1,0 +1,22 @@
+language: php
+
+cache:
+  directories:
+    - vendor
+
+matrix:
+  include:
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+      env: LATEST=YES
+
+install:
+  - composer install --no-suggest
+
+script:
+  - composer lint
+  - composer test
+
+#after_success:
+#  - bash <(curl -s https://codecov.io/bash)
