@@ -48,7 +48,9 @@ class Client
 
     /**
      * @param string $filepath
+     *
      * @return Simulation
+     *
      * @throws JsonMapper_Exception
      */
     public function loadSimulationFromFile(string $filepath): Simulation
@@ -146,6 +148,7 @@ class Client
 
     /**
      * @return string
+     *
      * @throws GuzzleException
      */
     public function getDestination(): string
@@ -157,7 +160,9 @@ class Client
 
     /**
      * @param string $destination
+     *
      * @return string
+     *
      * @throws GuzzleException
      */
     public function updateDestination(string $destination): string
@@ -170,7 +175,9 @@ class Client
 
     /**
      * @param Simulation $simulation
+     *
      * @return Simulation
+     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -183,12 +190,15 @@ class Client
 
     /**
      * @param string $filename
+     *
      * @return Simulation
+     *
      * @throws JsonMapper_Exception
      */
     public function uploadSimulationFromFile(string $filename): Simulation
     {
         $simulation = $this->loadSimulationFromFile($filename);
+
         return $this->uploadSimulation($simulation);
     }
 
