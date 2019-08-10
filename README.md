@@ -1,5 +1,7 @@
 # Hoverfly PHP Client
 
+[![Build Status](https://travis-ci.org/ns3777k/hoverfly-php.svg?branch=master)](https://travis-ci.org/ns3777k/hoverfly-php)
+
 PHP Client for [hoverfly](https://hoverfly.io/) based on [java version](https://github.com/SpectoLabs/hoverfly-java).
 
 ***Project is under heavy development!***
