@@ -262,6 +262,14 @@ class Client
         return $this->mapper->map($response, new Simulation());
     }
 
+    /**
+     * @param StubServiceBuilder ...$builders
+     *
+     * @return Simulation
+     *
+     * @throws GuzzleException
+     * @throws JsonMapper_Exception
+     */
     public function simulate(StubServiceBuilder ...$builders): Simulation
     {
         $simulation = new Simulation();
