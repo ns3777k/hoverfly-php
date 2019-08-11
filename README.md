@@ -16,3 +16,4 @@ PHP Client for [hoverfly](https://hoverfly.io/) based on [java version](https://
 6. codeception integration
 7. variadic args instead of arrays
 8. helpers
+9. response headers without nested arrays

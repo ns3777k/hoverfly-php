@@ -5,8 +5,10 @@ namespace Hoverfly;
 use Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Hoverfly\Model\Middleware;
 use Hoverfly\Model\Simulation;
 use Hoverfly\SimulationBuilder\Builder;
+use Hoverfly\SimulationBuilder\StubServiceBuilder;
 use JsonMapper;
 use JsonMapper_Exception;
 use Hoverfly\Model\Server;
@@ -52,6 +54,7 @@ class Client
      * @return Simulation
      *
      * @throws JsonMapper_Exception
+     * @throws Exception
      */
     public function loadSimulationFromFile(string $filepath): Simulation
     {
@@ -147,6 +150,34 @@ class Client
     }
 
     /**
+     * @return Middleware
+     *
+     * @throws GuzzleException
+     * @throws JsonMapper_Exception
+     */
+    public function getMiddleware(): Middleware
+    {
+        $response = $this->getJson('/api/v2/hoverfly/middleware');
+
+        return $this->mapper->map($response, new Middleware());
+    }
+
+    /**
+     * @param Middleware $middleware
+     *
+     * @return Middleware
+     *
+     * @throws GuzzleException
+     * @throws JsonMapper_Exception
+     */
+    public function updateMiddleware(Middleware $middleware): Middleware
+    {
+        $response = $this->putJson('/api/v2/hoverfly/middleware', ['json' => $middleware]);
+
+        return $this->mapper->map($response, new Middleware());
+    }
+
+    /**
      * @return string
      *
      * @throws GuzzleException
@@ -189,10 +220,26 @@ class Client
     }
 
     /**
+     * @param Simulation $simulation
+     *
+     * @return Simulation
+     *
+     * @throws GuzzleException
+     * @throws JsonMapper_Exception
+     */
+    public function appendSimulation(Simulation $simulation): Simulation
+    {
+        $response = $this->postJson('/api/v2/simulation', ['json' => $simulation]);
+
+        return $this->mapper->map($response, new Simulation());
+    }
+
+    /**
      * @param string $filename
      *
      * @return Simulation
      *
+     * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
     public function uploadSimulationFromFile(string $filename): Simulation
@@ -202,10 +249,29 @@ class Client
         return $this->uploadSimulation($simulation);
     }
 
+    /**
+     * @return Simulation
+     *
+     * @throws GuzzleException
+     * @throws JsonMapper_Exception
+     */
     public function deleteSimulation(): Simulation
     {
         $response = $this->deleteJson('/api/v2/simulation');
 
         return $this->mapper->map($response, new Simulation());
+    }
+
+    public function simulate(StubServiceBuilder ...$builders): Simulation
+    {
+        $simulation = new Simulation();
+
+        foreach ($builders as $builder) {
+            foreach ($builder->getRequestResponsePairs() as $pair) {
+                $simulation->getData()->addPair($pair);
+            }
+        }
+
+        return $this->uploadSimulation($simulation);
     }
 }

@@ -149,12 +149,12 @@ class Response implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        return [
+        return array_filter([
             'status' => $this->status,
             'body' => $this->body,
             'encodedBody' => $this->encodedBody,
             'headers' => $this->headers,
             'templated' => $this->templated,
-        ];
+        ]);
     }
 }

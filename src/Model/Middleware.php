@@ -5,7 +5,7 @@ namespace Hoverfly\Model;
 /**
  * Class Middleware.
  */
-class Middleware
+class Middleware implements \JsonSerializable
 {
     /**
      * @var string
@@ -80,5 +80,14 @@ class Middleware
         $this->remote = $remote;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'binary' => $this->binary,
+            'script' => $this->script,
+            'remote' => $this->remote,
+        ];
     }
 }
