@@ -15,12 +15,12 @@ class Request implements \JsonSerializable
     private $method = [];
 
     /**
-     * @var ArrayRequestFieldMatcher
+     * @var RequestFieldMatcher[][]
      */
     private $headers;
 
     /**
-     * @var ArrayRequestFieldMatcher
+     * @var RequestFieldMatcher[][]
      */
     private $query;
 
@@ -43,15 +43,6 @@ class Request implements \JsonSerializable
      * @var RequestFieldMatcher[]
      */
     private $body = [];
-
-    /**
-     * Request constructor.
-     */
-    public function __construct()
-    {
-        $this->headers = new ArrayRequestFieldMatcher();
-        $this->query = new ArrayRequestFieldMatcher();
-    }
 
     /**
      * @return RequestFieldMatcher[]
@@ -134,19 +125,19 @@ class Request implements \JsonSerializable
     }
 
     /**
-     * @return ArrayRequestFieldMatcher
+     * @return RequestFieldMatcher[][]
      */
-    public function getHeaders(): ArrayRequestFieldMatcher
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
     /**
-     * @param ArrayRequestFieldMatcher $headers
+     * @param RequestFieldMatcher[][] $headers
      *
      * @return Request
      */
-    public function setHeaders(ArrayRequestFieldMatcher $headers): Request
+    public function setHeaders(array $headers): Request
     {
         $this->headers = $headers;
 
@@ -154,19 +145,19 @@ class Request implements \JsonSerializable
     }
 
     /**
-     * @return ArrayRequestFieldMatcher
+     * @return RequestFieldMatcher[][]
      */
-    public function getQuery(): ArrayRequestFieldMatcher
+    public function getQuery(): array
     {
         return $this->query;
     }
 
     /**
-     * @param ArrayRequestFieldMatcher $query
+     * @param RequestFieldMatcher[][] $query
      *
      * @return Request
      */
-    public function setQuery(ArrayRequestFieldMatcher $query): Request
+    public function setQuery(array $query): Request
     {
         $this->query = $query;
 

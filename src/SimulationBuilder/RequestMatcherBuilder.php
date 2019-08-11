@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hoverfly\SimulationBuilder;
 
-use Hoverfly\Model\ArrayRequestFieldMatcher;
 use Hoverfly\Model\Request;
 use Hoverfly\Model\RequestFieldMatcher;
 use Hoverfly\Model\RequestResponsePair;
@@ -198,8 +197,8 @@ class RequestMatcherBuilder
             ->setMethod($this->method)
             ->setPath($this->path)
             ->setScheme($this->scheme)
-            ->setHeaders(new ArrayRequestFieldMatcher($this->headers))
-            ->setQuery(new ArrayRequestFieldMatcher($this->query))
+            ->setHeaders($this->headers)
+            ->setQuery($this->query)
             ->setBody($this->body)
             ->setDestination($this->destination);
     }
