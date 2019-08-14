@@ -25,9 +25,9 @@ class StubServiceBuilder
     /**
      * StubServiceBuilder constructor.
      *
-     * @param RequestFieldMatcher[] $destination
+     * @param RequestFieldMatcher ...$destination
      */
-    public function __construct(array $destination)
+    public function __construct(RequestFieldMatcher ...$destination)
     {
         $this->destination = $destination;
     }
@@ -82,15 +82,15 @@ class StubServiceBuilder
      */
     public function getExact(string $path): RequestMatcherBuilder
     {
-        return $this->get([RequestFieldMatcher::newExactMatcher($path)]);
+        return $this->get(RequestFieldMatcher::newExactMatcher($path));
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function get(array $matchers): RequestMatcherBuilder
+    public function get(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('GET')], $matchers);
     }
@@ -102,15 +102,15 @@ class StubServiceBuilder
      */
     public function postExact(string $path): RequestMatcherBuilder
     {
-        return $this->post([RequestFieldMatcher::newExactMatcher($path)]);
+        return $this->post(RequestFieldMatcher::newExactMatcher($path));
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function post(array $matchers): RequestMatcherBuilder
+    public function post(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('POST')], $matchers);
     }
@@ -122,15 +122,15 @@ class StubServiceBuilder
      */
     public function putExact(string $path): RequestMatcherBuilder
     {
-        return $this->put([RequestFieldMatcher::newExactMatcher($path)]);
+        return $this->put(RequestFieldMatcher::newExactMatcher($path));
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function put(array $matchers): RequestMatcherBuilder
+    public function put(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('PUT')], $matchers);
     }
@@ -142,15 +142,15 @@ class StubServiceBuilder
      */
     public function deleteExact(string $path): RequestMatcherBuilder
     {
-        return $this->delete([RequestFieldMatcher::newExactMatcher($path)]);
+        return $this->delete(RequestFieldMatcher::newExactMatcher($path));
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function delete(array $matchers): RequestMatcherBuilder
+    public function delete(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('DELETE')], $matchers);
     }
@@ -166,11 +166,11 @@ class StubServiceBuilder
     }
 
     /**
-     * @param array $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function anyMethod(array $matchers): RequestMatcherBuilder
+    public function anyMethod(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([], $matchers);
     }

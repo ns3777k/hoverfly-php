@@ -47,7 +47,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function setStatus(int $status): Response
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
@@ -67,7 +67,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function setBody(string $body): Response
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
@@ -87,7 +87,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function setEncodedBody(bool $encodedBody): Response
+    public function setEncodedBody(bool $encodedBody): self
     {
         $this->encodedBody = $encodedBody;
 
@@ -107,7 +107,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function setHeaders(array $headers): Response
+    public function setHeaders(array $headers): self
     {
         $this->headers = $headers;
 
@@ -120,7 +120,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function addHeader(string $key, string $value): Response
+    public function addHeader(string $key, string $value): self
     {
         $this->headers[$key] = [$value];
 
@@ -140,7 +140,7 @@ class Response implements \JsonSerializable
      *
      * @return Response
      */
-    public function setTemplated(bool $templated): Response
+    public function setTemplated(bool $templated): self
     {
         $this->templated = $templated;
 

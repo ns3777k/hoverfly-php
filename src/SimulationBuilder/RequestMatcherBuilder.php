@@ -15,11 +15,6 @@ use Hoverfly\Model\Response;
 class RequestMatcherBuilder
 {
     /**
-     * @var string
-     */
-    private const SEPARATOR = '://';
-
-    /**
      * @var RequestFieldMatcher[]
      */
     private $destination = [];
@@ -82,17 +77,15 @@ class RequestMatcherBuilder
      */
     public function schemeExact(string $scheme): self
     {
-        $this->scheme = [RequestFieldMatcher::newExactMatcher($scheme)];
-
-        return $this;
+        return $this->scheme(RequestFieldMatcher::newExactMatcher($scheme));
     }
 
     /**
-     * @param array $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function scheme(array $matchers): self
+    public function scheme(RequestFieldMatcher ...$matchers): self
     {
         $this->scheme = $matchers;
 
@@ -107,18 +100,16 @@ class RequestMatcherBuilder
      */
     public function headerExact(string $key, string $value): self
     {
-        $this->headers[$key] = [RequestFieldMatcher::newExactMatcher($value)];
-
-        return $this;
+        return $this->headers($key, RequestFieldMatcher::newExactMatcher($value));
     }
 
     /**
-     * @param string                $key
-     * @param RequestFieldMatcher[] $matchers
+     * @param string              $key
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function headers(string $key, array $matchers): self
+    public function headers(string $key, RequestFieldMatcher ...$matchers): self
     {
         $this->headers[$key] = $matchers;
 
@@ -139,12 +130,12 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string                $key
-     * @param RequestFieldMatcher[] $matchers
+     * @param string              $key
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function queryParams(string $key, array $matchers): self
+    public function queryParams(string $key, RequestFieldMatcher ...$matchers): self
     {
         $this->query[$key] = $matchers;
 
@@ -164,11 +155,11 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
      */
-    public function body(array $matchers): self
+    public function body(RequestFieldMatcher ...$matchers): self
     {
         $this->body = $matchers;
 

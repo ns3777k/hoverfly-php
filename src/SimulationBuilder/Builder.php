@@ -18,15 +18,15 @@ class Builder
      */
     public function serviceExact(string $baseUrl): StubServiceBuilder
     {
-        return $this->service([RequestFieldMatcher::newExactMatcher($baseUrl)]);
+        return $this->service(RequestFieldMatcher::newExactMatcher($baseUrl));
     }
 
     /**
-     * @param RequestFieldMatcher[] $matchers
+     * @param RequestFieldMatcher ...$matchers
      *
      * @return StubServiceBuilder
      */
-    public function service(array $matchers): StubServiceBuilder
+    public function service(RequestFieldMatcher ...$matchers): StubServiceBuilder
     {
         return new StubServiceBuilder($matchers);
     }
