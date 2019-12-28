@@ -15,6 +15,16 @@ class SimulationData implements \JsonSerializable
     private $pairs = [];
 
     /**
+     * @var GlobalActions
+     */
+    private $globalActions;
+
+    public function __construct()
+    {
+        $this->globalActions = new GlobalActions();
+    }
+
+    /**
      * @return RequestResponsePair[]
      */
     public function getPairs(): array
@@ -24,8 +34,6 @@ class SimulationData implements \JsonSerializable
 
     /**
      * @param RequestResponsePair[] $pairs
-     *
-     * @return SimulationData
      */
     public function setPairs(array $pairs): SimulationData
     {
@@ -34,14 +42,21 @@ class SimulationData implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param RequestResponsePair $pair
-     *
-     * @return SimulationData
-     */
     public function addPair(RequestResponsePair $pair): SimulationData
     {
         $this->pairs[] = $pair;
+
+        return $this;
+    }
+
+    public function getGlobalActions(): GlobalActions
+    {
+        return $this->globalActions;
+    }
+
+    public function setGlobalActions(GlobalActions $globalActions): SimulationData
+    {
+        $this->globalActions = $globalActions;
 
         return $this;
     }
@@ -50,6 +65,7 @@ class SimulationData implements \JsonSerializable
     {
         return [
             'pairs' => $this->pairs,
+            'globalActions' => $this->globalActions,
         ];
     }
 }

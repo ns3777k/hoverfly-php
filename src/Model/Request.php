@@ -54,8 +54,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[] $method
-     *
-     * @return Request
      */
     public function setMethod(array $method): Request
     {
@@ -74,8 +72,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[] $url
-     *
-     * @return Request
      */
     public function setDestination(array $url): Request
     {
@@ -94,8 +90,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[] $path
-     *
-     * @return Request
      */
     public function setPath(array $path): Request
     {
@@ -114,8 +108,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[] $scheme
-     *
-     * @return Request
      */
     public function setScheme(array $scheme): Request
     {
@@ -134,8 +126,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[][] $headers
-     *
-     * @return Request
      */
     public function setHeaders(array $headers): Request
     {
@@ -154,8 +144,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[][] $query
-     *
-     * @return Request
      */
     public function setQuery(array $query): Request
     {
@@ -174,8 +162,6 @@ class Request implements \JsonSerializable
 
     /**
      * @param RequestFieldMatcher[] $body
-     *
-     * @return Request
      */
     public function setBody(array $body): Request
     {

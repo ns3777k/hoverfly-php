@@ -11,11 +11,6 @@ use Hoverfly\Model\RequestFieldMatcher;
  */
 class Builder
 {
-    /**
-     * @param string $baseUrl
-     *
-     * @return StubServiceBuilder
-     */
     public function serviceExact(string $baseUrl): StubServiceBuilder
     {
         return $this->service(RequestFieldMatcher::newExactMatcher($baseUrl));
@@ -23,11 +18,9 @@ class Builder
 
     /**
      * @param RequestFieldMatcher ...$matchers
-     *
-     * @return StubServiceBuilder
      */
     public function service(RequestFieldMatcher ...$matchers): StubServiceBuilder
     {
-        return new StubServiceBuilder($matchers);
+        return new StubServiceBuilder(...$matchers);
     }
 }

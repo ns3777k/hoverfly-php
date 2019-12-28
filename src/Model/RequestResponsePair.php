@@ -21,9 +21,6 @@ class RequestResponsePair implements \JsonSerializable
 
     /**
      * RequestResponsePair constructor.
-     *
-     * @param Request|null  $request
-     * @param Response|null $response
      */
     public function __construct(Request $request = null, Response $response = null)
     {
@@ -31,19 +28,11 @@ class RequestResponsePair implements \JsonSerializable
         $this->response = $response;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return $this->request;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return RequestResponsePair
-     */
     public function setRequest(Request $request): RequestResponsePair
     {
         $this->request = $request;
@@ -51,19 +40,11 @@ class RequestResponsePair implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return Response
-     */
     public function getResponse(): Response
     {
         return $this->response;
     }
 
-    /**
-     * @param Response $response
-     *
-     * @return RequestResponsePair
-     */
     public function setResponse(Response $response): RequestResponsePair
     {
         $this->response = $response;

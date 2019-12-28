@@ -57,7 +57,6 @@ class RequestMatcherBuilder
     /**
      * RequestMatcherBuilder constructor.
      *
-     * @param StubServiceBuilder    $serviceBuilder
      * @param RequestFieldMatcher[] $method
      * @param RequestFieldMatcher[] $destination
      * @param RequestFieldMatcher[] $path
@@ -71,8 +70,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string $scheme
-     *
      * @return RequestMatcherBuilder
      */
     public function schemeExact(string $scheme): self
@@ -93,9 +90,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string $key
-     * @param string $value
-     *
      * @return RequestMatcherBuilder
      */
     public function headerExact(string $key, string $value): self
@@ -104,7 +98,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string              $key
      * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
@@ -117,9 +110,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string $key
-     * @param string $value
-     *
      * @return RequestMatcherBuilder
      */
     public function queryParamExact(string $key, string $value): self
@@ -130,7 +120,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string              $key
      * @param RequestFieldMatcher ...$matchers
      *
      * @return RequestMatcherBuilder
@@ -143,8 +132,6 @@ class RequestMatcherBuilder
     }
 
     /**
-     * @param string $body
-     *
      * @return RequestMatcherBuilder
      */
     public function bodyExact(string $body): self
@@ -166,22 +153,16 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @param Response $response
-     *
-     * @return StubServiceBuilder
-     */
     public function willReturn(Response $response): StubServiceBuilder
     {
-        $pair = new RequestResponsePair($this->build(), $response);
+        $request = $this->build();
+        $pair = new RequestResponsePair($request, $response);
 
         return $this->serviceBuilder
-            ->addRequestResponsePair($pair);
+            ->addRequestResponsePair($pair)
+            ->addDelaySettings($request, $response);
     }
 
-    /**
-     * @return Request
-     */
     public function build(): Request
     {
         return (new Request())

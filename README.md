@@ -7,12 +7,28 @@ PHP Client for [hoverfly](https://hoverfly.io/) based on [java version](https://
 
 ***Project is under heavy development!***
 
-## TODO:
-1. implement the rest of API
-2. implement delays
-3. implement states
-4. write tests
-5. phpunit integration
-6. codeception integration
-7. helpers
-8. response headers without nested arrays
+```php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Hoverfly\Client;
+use Hoverfly\Model\Response;
+
+$client = new Client();
+$client->simulate(
+    $client->createSimulationBuilder()
+        ->serviceExact('test.ru')
+        ->getExact('/test')
+        ->willReturn(Response::json(['test' => true])->setDelay(3000))
+);
+```
+
+## TODO: Basic
+1. Implement States
+2. Write tests
+
+## TODO: Advanced
+1. Implement the rest of API
+2. Implement phpunit integration?
+3. Implement codeception integration?

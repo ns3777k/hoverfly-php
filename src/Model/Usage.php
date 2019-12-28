@@ -12,19 +12,11 @@ class Usage
      */
     private $counters;
 
-    /**
-     * @return UsageCounters
-     */
     public function getCounters(): UsageCounters
     {
         return $this->counters;
     }
 
-    /**
-     * @param UsageCounters $counters
-     *
-     * @return Usage
-     */
     public function setCounters(UsageCounters $counters): Usage
     {
         $this->counters = $counters;

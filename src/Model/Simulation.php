@@ -25,19 +25,11 @@ class Simulation implements \JsonSerializable
         $this->data = new SimulationData();
     }
 
-    /**
-     * @return SimulationData
-     */
     public function getData(): SimulationData
     {
         return $this->data;
     }
 
-    /**
-     * @param SimulationData $data
-     *
-     * @return Simulation
-     */
     public function setData(SimulationData $data): Simulation
     {
         $this->data = $data;
@@ -45,19 +37,11 @@ class Simulation implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return SimulationMeta
-     */
     public function getMeta(): SimulationMeta
     {
         return $this->meta;
     }
 
-    /**
-     * @param SimulationMeta $meta
-     *
-     * @return Simulation
-     */
     public function setMeta(SimulationMeta $meta): Simulation
     {
         $this->meta = $meta;

@@ -24,19 +24,11 @@ class SimulationMeta implements \JsonSerializable
      */
     private $timeExported = '';
 
-    /**
-     * @return string
-     */
     public function getSchemaVersion(): string
     {
         return $this->schemaVersion;
     }
 
-    /**
-     * @param string $schemaVersion
-     *
-     * @return SimulationMeta
-     */
     public function setSchemaVersion(string $schemaVersion): SimulationMeta
     {
         $this->schemaVersion = $schemaVersion;
@@ -44,19 +36,11 @@ class SimulationMeta implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHoverflyVersion(): string
     {
         return $this->hoverflyVersion;
     }
 
-    /**
-     * @param string $hoverflyVersion
-     *
-     * @return SimulationMeta
-     */
     public function setHoverflyVersion(string $hoverflyVersion): SimulationMeta
     {
         $this->hoverflyVersion = $hoverflyVersion;
@@ -64,19 +48,11 @@ class SimulationMeta implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTimeExported(): string
     {
         return $this->timeExported;
     }
 
-    /**
-     * @param string $timeExported
-     *
-     * @return SimulationMeta
-     */
     public function setTimeExported(string $timeExported): SimulationMeta
     {
         $this->timeExported = $timeExported;

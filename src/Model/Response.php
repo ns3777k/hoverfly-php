@@ -35,16 +35,36 @@ class Response implements \JsonSerializable
     private $templated = false;
 
     /**
-     * @return int
+     * @var int
      */
+    private $delay = 0;
+
+    public static function json(array $body, int $code = 200, string $contentType = 'application/json')
+    {
+        return (new static())
+            ->setStatus($code)
+            ->setBody(json_encode($body))
+            ->addHeader('Content-Type', $contentType);
+    }
+
+    public function setDelay(int $delayMs = 0)
+    {
+        $this->delay = $delayMs;
+
+        return $this;
+    }
+
+    public function getDelay(): int
+    {
+        return $this->delay;
+    }
+
     public function getStatus(): int
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
-     *
      * @return Response
      */
     public function setStatus(int $status): self
@@ -54,17 +74,12 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getBody(): string
     {
         return $this->body;
     }
 
     /**
-     * @param string $body
-     *
      * @return Response
      */
     public function setBody(string $body): self
@@ -74,17 +89,12 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isEncodedBody(): bool
     {
         return $this->encodedBody;
     }
 
     /**
-     * @param bool $encodedBody
-     *
      * @return Response
      */
     public function setEncodedBody(bool $encodedBody): self
@@ -94,17 +104,12 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getHeaders(): array
     {
         return $this->headers;
     }
 
     /**
-     * @param array $headers
-     *
      * @return Response
      */
     public function setHeaders(array $headers): self
@@ -115,9 +120,6 @@ class Response implements \JsonSerializable
     }
 
     /**
-     * @param string $key
-     * @param string $value
-     *
      * @return Response
      */
     public function addHeader(string $key, string $value): self
@@ -127,17 +129,12 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isTemplated(): bool
     {
         return $this->templated;
     }
 
     /**
-     * @param bool $templated
-     *
      * @return Response
      */
     public function setTemplated(bool $templated): self

@@ -61,9 +61,6 @@ class RequestFieldMatcher implements \JsonSerializable
 
     /**
      * RequestFieldMatcher constructor.
-     *
-     * @param string $value
-     * @param string $matcher
      */
     public function __construct(string $value, string $matcher = self::EXACT)
     {
@@ -71,19 +68,11 @@ class RequestFieldMatcher implements \JsonSerializable
         $this->matcher = $matcher;
     }
 
-    /**
-     * @return string
-     */
     public function getMatcher(): string
     {
         return $this->matcher;
     }
 
-    /**
-     * @param string $matcher
-     *
-     * @return RequestFieldMatcher
-     */
     public function setMatcher(string $matcher): RequestFieldMatcher
     {
         $this->matcher = $matcher;
@@ -91,19 +80,11 @@ class RequestFieldMatcher implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return RequestFieldMatcher
-     */
     public function setValue(string $value): RequestFieldMatcher
     {
         $this->value = $value;
@@ -111,11 +92,6 @@ class RequestFieldMatcher implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return RequestFieldMatcher
-     */
     public static function newExactMatcher(string $value): RequestFieldMatcher
     {
         return new static($value);

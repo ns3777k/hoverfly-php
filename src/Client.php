@@ -6,12 +6,12 @@ use Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Hoverfly\Model\Middleware;
+use Hoverfly\Model\Server;
 use Hoverfly\Model\Simulation;
 use Hoverfly\SimulationBuilder\Builder;
 use Hoverfly\SimulationBuilder\StubServiceBuilder;
 use JsonMapper;
 use JsonMapper_Exception;
-use Hoverfly\Model\Server;
 
 /**
  * Class Client.
@@ -29,6 +29,54 @@ class Client
     private $mapper;
 
     /**
+     * @throws GuzzleException
+     */
+    private function sendJsonRequest(string $method, string $path, array $options = []): array
+    {
+        $response = $this->client->request($method, $path, $options);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    private function getJson(string $path, array $options = []): array
+    {
+        return $this->sendJsonRequest('GET', $path, $options);
+    }
+
+    /**
+     * @return array
+     *
+     * @throws GuzzleException
+     */
+    private function postJson(string $path, array $options = [])
+    {
+        return $this->sendJsonRequest('POST', $path, $options);
+    }
+
+    /**
+     * @return array
+     *
+     * @throws GuzzleException
+     */
+    private function putJson(string $path, array $options = [])
+    {
+        return $this->sendJsonRequest('PUT', $path, $options);
+    }
+
+    /**
+     * @return array
+     *
+     * @throws GuzzleException
+     */
+    private function deleteJson(string $path, array $options = [])
+    {
+        return $this->sendJsonRequest('DELETE', $path, $options);
+    }
+
+    /**
      * Client constructor.
      *
      * @param ClientInterface $client
@@ -40,19 +88,12 @@ class Client
         $this->mapper->bEnforceMapType = false;
     }
 
-    /**
-     * @return Builder
-     */
     public function createSimulationBuilder(): Builder
     {
         return new Builder();
     }
 
     /**
-     * @param string $filepath
-     *
-     * @return Simulation
-     *
      * @throws JsonMapper_Exception
      * @throws Exception
      */
@@ -69,76 +110,6 @@ class Client
     }
 
     /**
-     * @param string $method
-     * @param string $path
-     * @param array  $options
-     *
-     * @return array
-     *
-     * @throws GuzzleException
-     */
-    private function sendJsonRequest(string $method, string $path, array $options = []): array
-    {
-        $response = $this->client->request($method, $path, $options);
-
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @param string $path
-     * @param array  $options
-     *
-     * @return array
-     *
-     * @throws GuzzleException
-     */
-    private function getJson(string $path, array $options = []): array
-    {
-        return $this->sendJsonRequest('GET', $path, $options);
-    }
-
-    /**
-     * @param string $path
-     * @param array  $options
-     *
-     * @return array
-     *
-     * @throws GuzzleException
-     */
-    private function postJson(string $path, array $options = [])
-    {
-        return $this->sendJsonRequest('POST', $path, $options);
-    }
-
-    /**
-     * @param string $path
-     * @param array  $options
-     *
-     * @return array
-     *
-     * @throws GuzzleException
-     */
-    private function putJson(string $path, array $options = [])
-    {
-        return $this->sendJsonRequest('PUT', $path, $options);
-    }
-
-    /**
-     * @param string $path
-     * @param array  $options
-     *
-     * @return array
-     *
-     * @throws GuzzleException
-     */
-    private function deleteJson(string $path, array $options = [])
-    {
-        return $this->sendJsonRequest('DELETE', $path, $options);
-    }
-
-    /**
-     * @return Server
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -150,8 +121,6 @@ class Client
     }
 
     /**
-     * @return Middleware
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -163,10 +132,6 @@ class Client
     }
 
     /**
-     * @param Middleware $middleware
-     *
-     * @return Middleware
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -178,8 +143,6 @@ class Client
     }
 
     /**
-     * @return string
-     *
      * @throws GuzzleException
      */
     public function getDestination(): string
@@ -190,10 +153,6 @@ class Client
     }
 
     /**
-     * @param string $destination
-     *
-     * @return string
-     *
      * @throws GuzzleException
      */
     public function updateDestination(string $destination): string
@@ -205,10 +164,6 @@ class Client
     }
 
     /**
-     * @param Simulation $simulation
-     *
-     * @return Simulation
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -220,10 +175,6 @@ class Client
     }
 
     /**
-     * @param Simulation $simulation
-     *
-     * @return Simulation
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -235,10 +186,6 @@ class Client
     }
 
     /**
-     * @param string $filename
-     *
-     * @return Simulation
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -250,8 +197,6 @@ class Client
     }
 
     /**
-     * @return Simulation
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -265,8 +210,6 @@ class Client
     /**
      * @param StubServiceBuilder ...$builders
      *
-     * @return Simulation
-     *
      * @throws GuzzleException
      * @throws JsonMapper_Exception
      */
@@ -277,6 +220,10 @@ class Client
         foreach ($builders as $builder) {
             foreach ($builder->getRequestResponsePairs() as $pair) {
                 $simulation->getData()->addPair($pair);
+            }
+
+            foreach ($builder->getDelaySettings() as $delaySettings) {
+                $simulation->getData()->getGlobalActions()->addDelaySettings($delaySettings);
             }
         }
 
