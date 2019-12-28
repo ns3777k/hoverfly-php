@@ -5,7 +5,7 @@
 
 PHP Client for [hoverfly](https://hoverfly.io/) based on [java version](https://github.com/SpectoLabs/hoverfly-java).
 
-***Project is under heavy development!***
+***Project is under heavy development! API may change in future!***
 
 ```php
 <?php
@@ -17,7 +17,7 @@ use Hoverfly\Model\Response;
 
 $client = new Client();
 $client->simulate(
-    $client->createSimulationBuilder()
+    $client->buildSimulation()
         ->serviceExact('test.ru')
         ->getExact('/test')
         ->withState('customer', 'individual')

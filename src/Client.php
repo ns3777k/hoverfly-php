@@ -3,6 +3,7 @@
 namespace Hoverfly;
 
 use Exception;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Hoverfly\Model\Middleware;
@@ -27,6 +28,13 @@ class Client
      * @var JsonMapper
      */
     private $mapper;
+
+    /**
+     * @var array
+     */
+    private $defaultOptions = [
+        'base_uri' => 'http://localhost:8888',
+    ];
 
     /**
      * @throws GuzzleException
@@ -79,16 +87,16 @@ class Client
     /**
      * Client constructor.
      *
-     * @param ClientInterface $client
+     * @param array $options Guzzle client options
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(array $options = [])
     {
-        $this->client = $client ?: new \GuzzleHttp\Client(['base_uri' => 'http://localhost:8888']);
+        $this->client = new GuzzleHttpClient(array_merge($this->defaultOptions, $options));
         $this->mapper = new JsonMapper();
         $this->mapper->bEnforceMapType = false;
     }
 
-    public function createSimulationBuilder(): Builder
+    public function buildSimulation(): Builder
     {
         return new Builder();
     }
