@@ -7,6 +7,14 @@ PHP Client for [hoverfly](https://hoverfly.io/) based on [java version](https://
 
 ***Project is under heavy development! API may change in future!***
 
+## Installation
+
+```shell script
+$ composer require ns3777k/hoverfly
+```
+
+## Example
+
 ```php
 <?php
 
