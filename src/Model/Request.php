@@ -45,6 +45,18 @@ class Request implements \JsonSerializable
     private $body = [];
 
     /**
+     * @var array
+     */
+    private $requiresState = [];
+
+    public function setRequiresState(array $state): self
+    {
+        $this->requiresState = $state;
+
+        return $this;
+    }
+
+    /**
      * @return RequestFieldMatcher[]
      */
     public function getMethod(): array
@@ -180,6 +192,7 @@ class Request implements \JsonSerializable
             'headers' => $this->headers,
             'query' => $this->query,
             'body' => $this->body,
+            'requiresState' => (object) $this->requiresState,
         ]);
     }
 }

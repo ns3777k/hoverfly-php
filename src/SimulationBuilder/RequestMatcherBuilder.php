@@ -55,6 +55,11 @@ class RequestMatcherBuilder
     private $body = [];
 
     /**
+     * @var array
+     */
+    private $state = [];
+
+    /**
      * RequestMatcherBuilder constructor.
      *
      * @param RequestFieldMatcher[] $method
@@ -153,6 +158,13 @@ class RequestMatcherBuilder
         return $this;
     }
 
+    public function withState(string $key, string $value): self
+    {
+        $this->state[$key] = $value;
+
+        return $this;
+    }
+
     public function willReturn(Response $response): StubServiceBuilder
     {
         $request = $this->build();
@@ -172,6 +184,7 @@ class RequestMatcherBuilder
             ->setHeaders($this->headers)
             ->setQuery($this->query)
             ->setBody($this->body)
+            ->setRequiresState($this->state)
             ->setDestination($this->destination);
     }
 }

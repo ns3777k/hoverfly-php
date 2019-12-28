@@ -35,6 +35,16 @@ class Response implements \JsonSerializable
     private $templated = false;
 
     /**
+     * @var array
+     */
+    private $transitionsState = [];
+
+    /**
+     * @var array
+     */
+    private $removesState = [];
+
+    /**
      * @var int
      */
     private $delay = 0;
@@ -109,9 +119,6 @@ class Response implements \JsonSerializable
         return $this->headers;
     }
 
-    /**
-     * @return Response
-     */
     public function setHeaders(array $headers): self
     {
         $this->headers = $headers;
@@ -119,9 +126,6 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return Response
-     */
     public function addHeader(string $key, string $value): self
     {
         $this->headers[$key] = [$value];
@@ -144,6 +148,60 @@ class Response implements \JsonSerializable
         return $this;
     }
 
+    public function getTransitionsState(): array
+    {
+        return $this->transitionsState;
+    }
+
+    public function setTransitionsState(array $transitionsState): Response
+    {
+        $this->transitionsState = $transitionsState;
+
+        return $this;
+    }
+
+    public function addTransitionsState(string $key, string $value): self
+    {
+        $this->transitionsState[$key] = $value;
+
+        return $this;
+    }
+
+    public function removeTransitionsState(string $key): self
+    {
+        unset($this->transitionsState[$key]);
+
+        return $this;
+    }
+
+    public function getRemovesState(): array
+    {
+        return $this->removesState;
+    }
+
+    public function setRemovesState(array $removesState): Response
+    {
+        $this->removesState = $removesState;
+
+        return $this;
+    }
+
+    public function addRemovesState(string $key): self
+    {
+        $this->removesState[] = $key;
+
+        return $this;
+    }
+
+    public function removeRemovesState(string $key): self
+    {
+        $this->removesState = array_filter($this->removesState, function (string $state) use ($key) {
+            return $state !== $key;
+        });
+
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         return array_filter([
@@ -152,6 +210,8 @@ class Response implements \JsonSerializable
             'encodedBody' => $this->encodedBody,
             'headers' => $this->headers,
             'templated' => $this->templated,
+            'transitionsState' => $this->transitionsState,
+            'removesState' => $this->removesState,
         ]);
     }
 }

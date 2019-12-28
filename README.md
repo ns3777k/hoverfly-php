@@ -20,13 +20,19 @@ $client->simulate(
     $client->createSimulationBuilder()
         ->serviceExact('test.ru')
         ->getExact('/test')
-        ->willReturn(Response::json(['test' => true])->setDelay(3000))
+        ->withState('customer', 'individual')
+        ->willReturn(
+            Response::json(['test' => true])
+                ->setDelay(3000)
+                ->addTransitionsState('step', 'order')
+                ->addTransitionsState('customer', 'individual')
+                ->addRemovesState('basket')
+        )
 );
 ```
 
 ## TODO: Basic
-1. Implement States
-2. Write tests
+1. Write tests
 
 ## TODO: Advanced
 1. Implement the rest of API
