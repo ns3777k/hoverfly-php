@@ -192,7 +192,7 @@ class Request implements \JsonSerializable
             'headers' => $this->headers,
             'query' => $this->query,
             'body' => $this->body,
-            'requiresState' => (object) $this->requiresState,
+            'requiresState' => $this->requiresState,
         ]);
     }
 }
