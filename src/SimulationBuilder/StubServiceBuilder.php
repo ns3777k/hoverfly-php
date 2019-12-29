@@ -166,7 +166,7 @@ class StubServiceBuilder
 
     public function anyMethodExact(string $path): RequestMatcherBuilder
     {
-        return $this->anyMethod([RequestFieldMatcher::newExactMatcher($path)]);
+        return $this->anyMethod(RequestFieldMatcher::newExactMatcher($path));
     }
 
     /**
