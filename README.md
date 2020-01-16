@@ -16,7 +16,7 @@ and that's where hoverfly and this client come in.
 ## Installation
 
 ```shell script
-$ composer require ns3777k/hoverfly
+$ composer require --dev ns3777k/hoverfly
 ```
 
 ## Example
