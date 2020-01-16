@@ -215,6 +215,13 @@ class Client
         return $this->mapper->map($response, new Simulation());
     }
 
+    public function getSimulation(): Simulation
+    {
+        $response = $this->getJson('/api/v2/simulation');
+
+        return $this->mapper->map($response, new Simulation());
+    }
+
     /**
      * @param StubServiceBuilder ...$builders
      *
