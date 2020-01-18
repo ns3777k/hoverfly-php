@@ -6,7 +6,9 @@ use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Hoverfly\Model\Journal;
 use Hoverfly\Model\Middleware;
+use Hoverfly\Model\Request;
 use Hoverfly\Model\Server;
 use Hoverfly\Model\Simulation;
 use Hoverfly\SimulationBuilder\Builder;
@@ -243,5 +245,26 @@ class Client
         }
 
         return $this->uploadSimulation($simulation);
+    }
+
+    public function getJournal(): Journal
+    {
+        $response = $this->getJson('/api/v2/journal');
+
+        return $this->mapper->map($response, new Journal());
+    }
+
+    public function deleteJournal(): Journal
+    {
+        $response = $this->deleteJson('/api/v2/journal');
+
+        return $this->mapper->map($response, new Journal());
+    }
+
+    public function searchJournal(Request $requestMatcher): Journal
+    {
+        $response = $this->postJson('/api/v2/journal', ['json' => ['request' => $requestMatcher]]);
+
+        return $this->mapper->map($response, new Journal());
     }
 }
