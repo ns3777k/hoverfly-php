@@ -36,9 +36,14 @@ class SomeTest
 {
     private $hoverfly;
 
-    public function _before()
+    public function __construct()
     {
         $this->hoverfly = new Client(['base_uri' => getenv('HOVERFLY_URL')]);
+    }
+
+    public function _before()
+    {
+        $this->hoverfly->deleteJournal();
         $this->hoverfly->deleteSimulation();
     }
 
@@ -62,8 +67,3 @@ class SomeTest
     }
 }
 ```
-
-## Coming soon
-1. Journal API
-2. Verify method
-3. Write tests
