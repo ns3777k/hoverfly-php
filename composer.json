@@ -20,7 +20,7 @@
     },
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "netresearch/jsonmapper": "^1.5",
+        "netresearch/jsonmapper": "^2.1.0",
         "ext-json": "*",
         "php": ">=7.2"
     },
