@@ -52,7 +52,7 @@ class RequestResponsePair implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'request' => $this->request,

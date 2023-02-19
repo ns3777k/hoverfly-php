@@ -9,7 +9,6 @@ use Hoverfly\Model\Request;
 use Hoverfly\Model\RequestFieldMatcher;
 use Hoverfly\Model\RequestResponsePair;
 use Hoverfly\Model\Response;
-use InvalidArgumentException;
 
 /**
  * Class StubServiceBuilder.
@@ -42,8 +41,6 @@ class StubServiceBuilder
 
     /**
      * StubServiceBuilder constructor.
-     *
-     * @param RequestFieldMatcher ...$destination
      */
     public function __construct(RequestFieldMatcher ...$destination)
     {
@@ -61,7 +58,7 @@ class StubServiceBuilder
     public function addDelaySettings(Request $request, Response $response): self
     {
         // TODO: move it
-        $toPattern = function (array $matchers) use ($request): string {
+        $toPattern = function (array $matchers): string {
             /** @var RequestFieldMatcher[] $accepted */
             $accepted = array_filter($matchers, function (RequestFieldMatcher $matcher) {
                 $matcher = $matcher->getMatcher();
@@ -70,7 +67,7 @@ class StubServiceBuilder
             });
 
             if (empty($accepted)) {
-                throw new InvalidArgumentException('None of the exact/regex matcher is set.');
+                throw new \InvalidArgumentException('None of the exact/regex matcher is set.');
             }
 
             return $accepted[0]->getValue();
@@ -84,9 +81,6 @@ class StubServiceBuilder
         return $this;
     }
 
-    /**
-     * @return StubServiceBuilder
-     */
     public function addRequestResponsePair(RequestResponsePair $pair): self
     {
         $this->requestResponsePairs[] = $pair;
@@ -117,9 +111,6 @@ class StubServiceBuilder
         return $this->get(RequestFieldMatcher::newExactMatcher($path));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function get(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('GET')], $matchers);
@@ -130,9 +121,6 @@ class StubServiceBuilder
         return $this->post(RequestFieldMatcher::newExactMatcher($path));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function post(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('POST')], $matchers);
@@ -143,9 +131,6 @@ class StubServiceBuilder
         return $this->put(RequestFieldMatcher::newExactMatcher($path));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function put(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('PUT')], $matchers);
@@ -156,9 +141,6 @@ class StubServiceBuilder
         return $this->delete(RequestFieldMatcher::newExactMatcher($path));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function delete(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([RequestFieldMatcher::newExactMatcher('DELETE')], $matchers);
@@ -169,9 +151,6 @@ class StubServiceBuilder
         return $this->anyMethod(RequestFieldMatcher::newExactMatcher($path));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function anyMethod(RequestFieldMatcher ...$matchers): RequestMatcherBuilder
     {
         return $this->createRequestMatcher([], $matchers);

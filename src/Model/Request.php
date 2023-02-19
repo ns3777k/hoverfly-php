@@ -182,7 +182,7 @@ class Request implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_filter([
             'method' => $this->method,

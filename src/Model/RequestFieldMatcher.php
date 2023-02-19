@@ -102,7 +102,7 @@ class RequestFieldMatcher implements \JsonSerializable
         return new static(json_encode($value), $partial ? static::JSON_PARTIAL : static::JSON);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'matcher' => $this->matcher,

@@ -9,10 +9,7 @@ namespace Hoverfly\Model;
  */
 class Arguments
 {
-    /**
-     * @var string
-     */
-    private $matchingStrategy = '';
+    private string $matchingStrategy = '';
 
     public function getMatchingStrategy(): string
     {

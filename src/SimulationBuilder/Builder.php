@@ -16,9 +16,6 @@ class Builder
         return $this->service(RequestFieldMatcher::newExactMatcher($baseUrl));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     */
     public function service(RequestFieldMatcher ...$matchers): StubServiceBuilder
     {
         return new StubServiceBuilder(...$matchers);

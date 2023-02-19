@@ -9,20 +9,11 @@ namespace Hoverfly\Model;
  */
 class SimulationMeta implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
-    private $schemaVersion = 'v5';
+    private string $schemaVersion = 'v5';
 
-    /**
-     * @var string
-     */
-    private $hoverflyVersion = '';
+    private string $hoverflyVersion = '';
 
-    /**
-     * @var string
-     */
-    private $timeExported = '';
+    private string $timeExported = '';
 
     public function getSchemaVersion(): string
     {
@@ -60,7 +51,7 @@ class SimulationMeta implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'timeExported' => $this->timeExported,

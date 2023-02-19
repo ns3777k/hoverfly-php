@@ -2,7 +2,6 @@
 
 namespace Hoverfly;
 
-use Exception;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -13,28 +12,17 @@ use Hoverfly\Model\Server;
 use Hoverfly\Model\Simulation;
 use Hoverfly\SimulationBuilder\Builder;
 use Hoverfly\SimulationBuilder\StubServiceBuilder;
-use JsonMapper;
-use JsonMapper_Exception;
 
 /**
  * Class Client.
  */
 class Client
 {
-    /**
-     * @var ClientInterface
-     */
-    private $client;
+    private ClientInterface $client;
 
-    /**
-     * @var JsonMapper
-     */
-    private $mapper;
+    private \JsonMapper $mapper;
 
-    /**
-     * @var array
-     */
-    private $defaultOptions = [
+    private array $defaultOptions = [
         'base_uri' => 'http://localhost:8888',
     ];
 
@@ -61,7 +49,7 @@ class Client
      *
      * @throws GuzzleException
      */
-    private function postJson(string $path, array $options = [])
+    private function postJson(string $path, array $options = []): array
     {
         return $this->sendJsonRequest('POST', $path, $options);
     }
@@ -71,7 +59,7 @@ class Client
      *
      * @throws GuzzleException
      */
-    private function putJson(string $path, array $options = [])
+    private function putJson(string $path, array $options = []): array
     {
         return $this->sendJsonRequest('PUT', $path, $options);
     }
@@ -81,7 +69,7 @@ class Client
      *
      * @throws GuzzleException
      */
-    private function deleteJson(string $path, array $options = [])
+    private function deleteJson(string $path, array $options = []): array
     {
         return $this->sendJsonRequest('DELETE', $path, $options);
     }
@@ -94,7 +82,7 @@ class Client
     public function __construct(array $options = [])
     {
         $this->client = new GuzzleHttpClient(array_merge($this->defaultOptions, $options));
-        $this->mapper = new JsonMapper();
+        $this->mapper = new \JsonMapper();
         $this->mapper->bEnforceMapType = false;
     }
 
@@ -104,13 +92,13 @@ class Client
     }
 
     /**
-     * @throws JsonMapper_Exception
-     * @throws Exception
+     * @throws \JsonMapper_Exception
+     * @throws \Exception
      */
     public function loadSimulationFromFile(string $filepath): Simulation
     {
         if (!file_exists($filepath)) {
-            throw new Exception(sprintf('File %s does not exist', $filepath));
+            throw new \Exception(sprintf('File %s does not exist', $filepath));
         }
 
         $content = file_get_contents($filepath);
@@ -121,7 +109,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function getServer(): Server
     {
@@ -132,7 +120,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function getMiddleware(): Middleware
     {
@@ -143,7 +131,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function updateMiddleware(Middleware $middleware): Middleware
     {
@@ -175,7 +163,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function uploadSimulation(Simulation $simulation): Simulation
     {
@@ -186,7 +174,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function appendSimulation(Simulation $simulation): Simulation
     {
@@ -197,7 +185,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function uploadSimulationFromFile(string $filename): Simulation
     {
@@ -208,7 +196,7 @@ class Client
 
     /**
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function deleteSimulation(): Simulation
     {
@@ -225,10 +213,8 @@ class Client
     }
 
     /**
-     * @param StubServiceBuilder ...$builders
-     *
      * @throws GuzzleException
-     * @throws JsonMapper_Exception
+     * @throws \JsonMapper_Exception
      */
     public function simulate(StubServiceBuilder ...$builders): Simulation
     {

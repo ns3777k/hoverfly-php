@@ -74,9 +74,6 @@ class Response implements \JsonSerializable
         return $this->status;
     }
 
-    /**
-     * @return Response
-     */
     public function setStatus(int $status): self
     {
         $this->status = $status;
@@ -89,9 +86,6 @@ class Response implements \JsonSerializable
         return $this->body;
     }
 
-    /**
-     * @return Response
-     */
     public function setBody(string $body): self
     {
         $this->body = $body;
@@ -104,9 +98,6 @@ class Response implements \JsonSerializable
         return $this->encodedBody;
     }
 
-    /**
-     * @return Response
-     */
     public function setEncodedBody(bool $encodedBody): self
     {
         $this->encodedBody = $encodedBody;
@@ -138,9 +129,6 @@ class Response implements \JsonSerializable
         return $this->templated;
     }
 
-    /**
-     * @return Response
-     */
     public function setTemplated(bool $templated): self
     {
         $this->templated = $templated;
@@ -202,7 +190,7 @@ class Response implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_filter([
             'status' => $this->status,

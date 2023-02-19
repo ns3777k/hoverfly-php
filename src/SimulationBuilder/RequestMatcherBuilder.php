@@ -17,47 +17,47 @@ class RequestMatcherBuilder
     /**
      * @var RequestFieldMatcher[]
      */
-    private $destination = [];
+    private array $destination = [];
 
     /**
      * @var StubServiceBuilder
      */
-    private $serviceBuilder;
+    private StubServiceBuilder $serviceBuilder;
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $scheme = [];
+    private array $scheme = [];
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $path = [];
+    private array $path = [];
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $method = [];
+    private array $method = [];
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $headers = [];
+    private array $headers = [];
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $query = [];
+    private array $query = [];
 
     /**
      * @var RequestFieldMatcher[]
      */
-    private $body = [];
+    private array $body = [];
 
     /**
      * @var array
      */
-    private $state = [];
+    private array $state = [];
 
     /**
      * RequestMatcherBuilder constructor.
@@ -74,19 +74,11 @@ class RequestMatcherBuilder
         $this->method = $method;
     }
 
-    /**
-     * @return RequestMatcherBuilder
-     */
     public function schemeExact(string $scheme): self
     {
         return $this->scheme(RequestFieldMatcher::newExactMatcher($scheme));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     *
-     * @return RequestMatcherBuilder
-     */
     public function scheme(RequestFieldMatcher ...$matchers): self
     {
         $this->scheme = $matchers;
@@ -94,19 +86,11 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @return RequestMatcherBuilder
-     */
     public function headerExact(string $key, string $value): self
     {
         return $this->headers($key, RequestFieldMatcher::newExactMatcher($value));
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     *
-     * @return RequestMatcherBuilder
-     */
     public function headers(string $key, RequestFieldMatcher ...$matchers): self
     {
         $this->headers[$key] = $matchers;
@@ -114,9 +98,6 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @return RequestMatcherBuilder
-     */
     public function queryParamExact(string $key, string $value): self
     {
         $this->query[$key] = [RequestFieldMatcher::newExactMatcher($value)];
@@ -124,11 +105,6 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     *
-     * @return RequestMatcherBuilder
-     */
     public function queryParams(string $key, RequestFieldMatcher ...$matchers): self
     {
         $this->query[$key] = $matchers;
@@ -136,9 +112,6 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @return RequestMatcherBuilder
-     */
     public function bodyExact(string $body): self
     {
         $this->body = [RequestFieldMatcher::newExactMatcher($body)];
@@ -146,11 +119,6 @@ class RequestMatcherBuilder
         return $this;
     }
 
-    /**
-     * @param RequestFieldMatcher ...$matchers
-     *
-     * @return RequestMatcherBuilder
-     */
     public function body(RequestFieldMatcher ...$matchers): self
     {
         $this->body = $matchers;
